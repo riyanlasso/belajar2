@@ -2187,31 +2187,60 @@ connection = pymysql.connect(host='localhost',
                              db='riyanlasso')
 
 cursor = connection.cursor()
-drop_query = "DROP TABLE AGNESKA"
-cursor.execute(drop_query)
 
-table_query = """
-CREATE TABLE IF NOT EXISTS AGNESKA (
-  id INTEGER PRIMARY KEY,
-  Frame FLOAT,
-  Marker VARCHAR(255),
-  X_Cordinates FLOAT,
-  X_Scoring FLOAT,
-  Y_Cordinates FLOAT,
-  Y_Scoring FLOAT,
-  Z_Cordinates FLOAT,
-  Z_Scoring FLOAT
-)
-"""
-cursor.execute(table_query)
+# drop_query = "DROP TABLE AGNESKA"
+# cursor.execute(drop_query)
 
-for i in range(len(frame_data)):
-    with connection.cursor() as cursor:
-        # Query SQL untuk memasukkan data
-        sql = f"INSERT INTO AGNESKA (id, Frame, Marker, X_Cordinates, X_Scoring, Y_Cordinates, Y_Scoring, Z_Cordinates, Z_Scoring) VALUES ({i}, {frame_data[i]}, '{marker[i]}', {x_data[i]}, {gabungkanx_data[i]}, {y_data[i]}, {gabungkany_data[i]}, {z_data[i]}, {gabungkanz_data[i]})"
-        cursor.execute(sql)
-    # Commit perubahan ke database
-    connection.commit()
+# table_exists = False
+cursor.execute("SHOW TABLES")
+tables = [table[0] for table in cursor.fetchall()]
+
+# print(tables)
+# tablesUpdate = []
+# tablesUpdate.append(tables)
+# print(tablesUpdate)
+
+namaPemilikData = 'DONI'
+namaPemilikData = namaPemilikData.lower()
+
+if namaPemilikData not in tables:
+    print(f"tabel {namaPemilikData} belum ada")
+    # tables.append(namaPemilikData)
+    table_query = f"""
+    CREATE TABLE IF NOT EXISTS {namaPemilikData} (
+      id INTEGER PRIMARY KEY,
+      Frame FLOAT,
+      Marker VARCHAR(255),
+      X_Cordinates FLOAT,
+      X_Scoring FLOAT,
+      Y_Cordinates FLOAT,
+      Y_Scoring FLOAT,
+      Z_Cordinates FLOAT,
+      Z_Scoring FLOAT
+    )
+    """
+    cursor.execute(table_query)
+    print('Berhasil membuat tabel baru')
+    
+    for i in range(len(frame_data)):
+        with connection.cursor() as cursor:
+            # Query SQL untuk memasukkan data
+            sql = f"INSERT INTO {namaPemilikData} (id, Frame, Marker, X_Cordinates, X_Scoring, Y_Cordinates, Y_Scoring, Z_Cordinates, Z_Scoring) VALUES ({i}, {frame_data[i]}, '{marker[i]}', {x_data[i]}, {gabungkanx_data[i]}, {y_data[i]}, {gabungkany_data[i]}, {z_data[i]}, {gabungkanz_data[i]})"
+            cursor.execute(sql)
+        # Commit perubahan ke database
+        connection.commit()
+    print(f"Data {namaPemilikData} berhasil ditambahkan")
+else:
+    for i in tables : 
+        if i in tables:
+            print(f"tabel {i} sudah ada")
+
+
+
+
+
+
+
 connection.close()
 
 
