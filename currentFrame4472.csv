@@ -1,0 +1,10 @@
+Frame number,1
+First frame,447
+Point frequency,100
+Analog frequency,1000
+
+Time,LPSI,,,RPSI,,,RTOE,,,LHEE,,,LKNE,,,LTIB,,,RTIB,,,LANK,,,RTHI,,,LTHI,,,RANK,,,RKNE,,,RHEE,,,LTOE,,,RASI,,,LASI,,
+s,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm,mm
+,X,Y,Z,X,Y,Z,X,Y,Z,X,Y,Z,X,Y,Z,X,Y,Z,X,Y,Z,X,Y,Z,X,Y,Z,X,Y,Z,X,Y,Z,X,Y,Z,X,Y,Z,X,Y,Z,X,Y,Z,X,Y,Z
+4.46,47.0372,1824.08,915.187,141.315,1833.97,916.543,122.271,2276.98,60.2585,50.1155,1511.7,150.653,-51.7686,1786.36,463.776,-51.5345,1643.77,273.561,225.141,2090.84,308.277,-3.00856,1563.2,141.982,259.024,2026.65,674.31,-77.7506,1846.06,598.469,161.157,2145.08,76.5464,0,0,0,157.462,2135.07,68.3972,18.5874,1654.31,40.4377,165.961,2025.13,910.795,-38.1934,2000.99,901.086
+
