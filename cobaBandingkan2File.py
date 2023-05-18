@@ -349,8 +349,9 @@ for i in markers_fix :
     # print(i)
     cekMarker.append(i)
 print(cekMarker)
+
 # Load the second c3d file
-# training
+# testing
 with open('446447.c3d', 'rb') as handle:
     reader = c3d.Reader(handle)
     markers = reader.point_labels
@@ -705,5 +706,7 @@ else:
     print("kedua data berbeda")
     print(f'data pertama memiliki frame {cekFrame1} , sedangkan data kedua memiliki frame{cekFrame2}')
     if len(markers_fix) == len(cekMarker) and len(markers_fix) == len(cekMarker2):
-        print("marker sama")
+        print('jumlah marker sama')
+    else : 
+        print('jumlah marker berbeda')
     

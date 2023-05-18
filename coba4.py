@@ -5,8 +5,8 @@ from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 import pymysql
 
-ceknama = 'AGNESKA     sasasasas'
-nama = ceknama.replace(" ", "")
+# ceknama = 'AGNESKA     sasasasas'
+# nama = ceknama.replace(" ", "")
 # print(nama)
 # training
 with open('446448.c3d', 'rb') as handle:
@@ -2023,56 +2023,74 @@ with open('446448.c3d', 'rb') as handle:
     ratarataLTOE = []
     ratarataRASI = []
     ratarataLASI = []
-    
-    averageLPSI = sum(penjumlahanLPSIX + penjumlahanLPSIY + penjumlahanLPSIZ) / len(hasilSkorLPSIX)
+
+    averageLPSI = sum(penjumlahanLPSIX + penjumlahanLPSIY +
+                      penjumlahanLPSIZ) / len(hasilSkorLPSIX)
     ratarataLPSI.append(averageLPSI)
 
-    averageRPSI = sum(penjumlahanRPSIX + penjumlahanRPSIY + penjumlahanRPSIZ) / len(hasilSkorRPSIX)
+    averageRPSI = sum(penjumlahanRPSIX + penjumlahanRPSIY +
+                      penjumlahanRPSIZ) / len(hasilSkorRPSIX)
     ratarataRPSI.append(averageRPSI)
 
-    averageRTOE = sum(penjumlahanRTOEX + penjumlahanRTOEY + penjumlahanRTOEZ) / len(hasilSkorRTOEX)
+    averageRTOE = sum(penjumlahanRTOEX + penjumlahanRTOEY +
+                      penjumlahanRTOEZ) / len(hasilSkorRTOEX)
     ratarataRTOE.append(averageRTOE)
 
-    averageLHEE = sum(penjumlahanLHEEX + penjumlahanLHEEY + penjumlahanLHEEZ) / len(hasilSkorLHEEX)
+    averageLHEE = sum(penjumlahanLHEEX + penjumlahanLHEEY +
+                      penjumlahanLHEEZ) / len(hasilSkorLHEEX)
     ratarataLHEE.append(averageLHEE)
 
-    averageLKNE = sum(penjumlahanLKNEX + penjumlahanLKNEY + penjumlahanLKNEZ) / len(hasilSkorLKNEX)
+    averageLKNE = sum(penjumlahanLKNEX + penjumlahanLKNEY +
+                      penjumlahanLKNEZ) / len(hasilSkorLKNEX)
     ratarataLKNE.append(averageLKNE)
 
-    averageLTIB = sum(penjumlahanLTIBX + penjumlahanLTIBY + penjumlahanLTIBZ) / len(hasilSkorLTIBX)
+    averageLTIB = sum(penjumlahanLTIBX + penjumlahanLTIBY +
+                      penjumlahanLTIBZ) / len(hasilSkorLTIBX)
     ratarataLTIB.append(averageLTIB)
 
-    averageRTIB = sum(penjumlahanRTIBX + penjumlahanRTIBY + penjumlahanRTIBZ) / len(hasilSkorRTIBX)
+    averageRTIB = sum(penjumlahanRTIBX + penjumlahanRTIBY +
+                      penjumlahanRTIBZ) / len(hasilSkorRTIBX)
     ratarataRTIB.append(averageRTIB)
 
-    averageLANK = sum(penjumlahanLANKX + penjumlahanLANKY + penjumlahanLANKZ) / len(hasilSkorLANKX)
+    averageLANK = sum(penjumlahanLANKX + penjumlahanLANKY +
+                      penjumlahanLANKZ) / len(hasilSkorLANKX)
     ratarataLANK.append(averageLANK)
 
-    averageRTHI = sum(penjumlahanRTHIX + penjumlahanRTHIY + penjumlahanRTHIZ) / len(hasilSkorRTHIX)
+    averageRTHI = sum(penjumlahanRTHIX + penjumlahanRTHIY +
+                      penjumlahanRTHIZ) / len(hasilSkorRTHIX)
     ratarataRTHI.append(averageRTHI)
 
-    averageLTHI = sum(penjumlahanLTHIX + penjumlahanLTHIY + penjumlahanLTHIZ) / len(hasilSkorLTHIX)
+    averageLTHI = sum(penjumlahanLTHIX + penjumlahanLTHIY +
+                      penjumlahanLTHIZ) / len(hasilSkorLTHIX)
     ratarataLTHI.append(averageLTHI)
 
-    averageRANK = sum(penjumlahanRANKX + penjumlahanRANKY + penjumlahanRANKZ) / len(hasilSkorRANKX)
+    averageRANK = sum(penjumlahanRANKX + penjumlahanRANKY +
+                      penjumlahanRANKZ) / len(hasilSkorRANKX)
     ratarataRANK.append(averageRANK)
 
-    averageRKNE = sum(penjumlahanRKNEX + penjumlahanRKNEY + penjumlahanRKNEZ) / len(hasilSkorRKNEX)
+    averageRKNE = sum(penjumlahanRKNEX + penjumlahanRKNEY +
+                      penjumlahanRKNEZ) / len(hasilSkorRKNEX)
     ratarataRKNE.append(averageRKNE)
 
-    averageRHEE = sum(penjumlahanRHEEX + penjumlahanRHEEY + penjumlahanRHEEZ) / len(hasilSkorRHEEX)
+    averageRHEE = sum(penjumlahanRHEEX + penjumlahanRHEEY +
+                      penjumlahanRHEEZ) / len(hasilSkorRHEEX)
     ratarataRHEE.append(averageRHEE)
 
-    averageLTOE = sum(penjumlahanLTOEX + penjumlahanLTOEY + penjumlahanLTOEZ) / len(hasilSkorLTOEX)
+    averageLTOE = sum(penjumlahanLTOEX + penjumlahanLTOEY +
+                      penjumlahanLTOEZ) / len(hasilSkorLTOEX)
     ratarataLTOE.append(averageLTOE)
 
-    averageRASI = sum(penjumlahanRASIX + penjumlahanRASIY + penjumlahanRASIZ) / len(hasilSkorRASIX)
+    averageRASI = sum(penjumlahanRASIX + penjumlahanRASIY +
+                      penjumlahanRASIZ) / len(hasilSkorRASIX)
     ratarataRASI.append(averageRASI)
 
-    averageLASI = sum(penjumlahanLASIX + penjumlahanLASIY + penjumlahanLASIZ) / len(hasilSkorLASIX)
+    averageLASI = sum(penjumlahanLASIX + penjumlahanLASIY +
+                      penjumlahanLASIZ) / len(hasilSkorLASIX)
     ratarataLASI.append(averageLASI)
 
-    allaverage = ratarataLPSI + ratarataRPSI + ratarataRTOE + ratarataLHEE + ratarataLKNE + ratarataLTIB + ratarataRTIB + ratarataLANK + ratarataRTHI + ratarataLTHI + ratarataRANK + ratarataRKNE + ratarataRHEE + ratarataLTOE + ratarataRASI + ratarataLASI
+    allaverage = ratarataLPSI + ratarataRPSI + ratarataRTOE + ratarataLHEE + ratarataLKNE + ratarataLTIB + ratarataRTIB + \
+        ratarataLANK + ratarataRTHI + ratarataLTHI + ratarataRANK + \
+        ratarataRKNE + ratarataRHEE + ratarataLTOE + ratarataRASI + ratarataLASI
     print(allaverage)
     # print(ratarataLASI)
     # print(ratarataRPSI)
@@ -2096,7 +2114,7 @@ with open('446448.c3d', 'rb') as handle:
         'Pengurangan Z': gabungkanPenguranganz_data,
         ' Scoring Z': gabungkanz_data,
     })
-    
+
     df2 = pd.DataFrame({'Jumlah LPSIX': penjumlahanLPSIX,
                         'Jumlah LPSIY': penjumlahanLPSIY,
                         'Jumlah LPSIZ': penjumlahanLPSIZ,
@@ -2145,11 +2163,11 @@ with open('446448.c3d', 'rb') as handle:
                         'Jumlah LASIX': penjumlahanLASIX,
                         'Jumlah LASIY': penjumlahanLASIY,
                         })
-    
-    df3 = pd.DataFrame({'All Average' : allaverage})
+
+    df3 = pd.DataFrame({'All Average': allaverage})
     # # df_clean = df2.dropna()
 
-    result = pd.concat([df,df3,df2], axis=1)
+    result = pd.concat([df, df3, df2], axis=1)
     print(result)
     marker = markers_fix * len(frame_no_list)
     # print(penjumlahanLPSIX)
@@ -2180,7 +2198,8 @@ with open('446448.c3d', 'rb') as handle:
 # perulangan : jika marker sama maka lakukan skoring
 # mendeteksi karakter L dan R untuk membedakan kaki kiri dan kanan
 
-#koneksi ke database mysql
+
+# koneksi ke database mysql
 connection = pymysql.connect(host='localhost',
                              user='root',
                              password='Iamironman123',
@@ -2188,17 +2207,17 @@ connection = pymysql.connect(host='localhost',
 
 cursor = connection.cursor()
 
-# drop_query = "DROP TABLE AGNESKA"
-# cursor.execute(drop_query)
+# # drop_query = "DROP TABLE AGNESKA"
+# # cursor.execute(drop_query)
 
-# table_exists = False
+# # table_exists = False
 cursor.execute("SHOW TABLES")
 tables = [table[0] for table in cursor.fetchall()]
 
-# print(tables)
-# tablesUpdate = []
-# tablesUpdate.append(tables)
-# print(tablesUpdate)
+# # print(tables)
+# # tablesUpdate = []
+# # tablesUpdate.append(tables)
+# # print(tablesUpdate)
 
 namaPemilikData = 'DONI'
 namaPemilikData = namaPemilikData.lower()
@@ -2221,30 +2240,36 @@ if namaPemilikData not in tables:
     """
     cursor.execute(table_query)
     print('Berhasil membuat tabel baru')
-    
+
     for i in range(len(frame_data)):
         with connection.cursor() as cursor:
             # Query SQL untuk memasukkan data
             sql = f"INSERT INTO {namaPemilikData} (id, Frame, Marker, X_Cordinates, X_Scoring, Y_Cordinates, Y_Scoring, Z_Cordinates, Z_Scoring) VALUES ({i}, {frame_data[i]}, '{marker[i]}', {x_data[i]}, {gabungkanx_data[i]}, {y_data[i]}, {gabungkany_data[i]}, {z_data[i]}, {gabungkanz_data[i]})"
             cursor.execute(sql)
+            # print('Ambil data dari setiap tabel')
+            # sql2 = f"SELECT * FROM {namaPemilikData} (id, Frame, Marker, X_Cordinates, X_Scoring, Y_Cordinates, Y_Scoring, Z_Cordinates, Z_Scoring) VALUES ({i}, {frame_data[i]}, '{marker[i]}', {x_data[i]}, {gabungkanx_data[i]}, {y_data[i]}, {gabungkany_data[i]}, {z_data[i]}, {gabungkanz_data[i]})"
+            # cursor.execute(sql2)
+            # print(sql2)
         # Commit perubahan ke database
         connection.commit()
     print(f"Data {namaPemilikData} berhasil ditambahkan")
 else:
-    for i in tables : 
+    for i in tables:
         if i in tables:
             print(f"tabel {i} sudah ada")
+print('')
 
-
-
-
-
-
+with connection.cursor() as cursor:
+    # Query SQL untuk memasukkan data
+    print('Ambil data dari setiap tabel')
+    for i in tables : 
+        sql2 = f"SELECT * FROM riyanlasso.{i}"
+        cursor.execute(sql2)
+        print(f"\nData dari tabel {i}:")
+        rows = cursor.fetchall()
+        for row in rows:
+            print(row)
+    
 
 connection.close()
 
-
-
-# testing
-# with open('') as handle2 :
-#     reader2 = c3d.Reader(handle2)
