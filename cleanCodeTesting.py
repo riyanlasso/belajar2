@@ -4,8 +4,8 @@ import pandas as pd
 from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 import pymysql
-# data arif
-with open('D:/Kuliah/Semester8/belajar2/data/arif/Dynamic trial 1.c3d', 'rb') as handle:
+# data agneska
+with open('Dynamic trial 5.c3d', 'rb') as handle:
     reader = c3d.Reader(handle)
     markers = reader.point_labels
     frames = []
@@ -1866,6 +1866,9 @@ tables = [table[0] for table in cursor.fetchall()]
 
 # # nama pemilik marker
 namaPemilikData = 'arif'
+umur = 17
+tinggiBadan = 162
+beratBadan = 58
 namaPemilikData = namaPemilikData.lower()
 
 if namaPemilikData not in tables:
@@ -1874,6 +1877,10 @@ if namaPemilikData not in tables:
     table_query = f"""
     CREATE TABLE IF NOT EXISTS {namaPemilikData} (
       id INTEGER PRIMARY KEY,
+      Name VARCHAR(255),
+      Age INTEGER,
+      Height INTEGER,
+      Weight INTEGER,
       Frame FLOAT,
       Marker VARCHAR(255),
       X_Cordinates FLOAT,
@@ -1891,19 +1898,24 @@ if namaPemilikData not in tables:
     for i in range(len(frame_data)):
         with connection.cursor() as cursor:
             # Query SQL untuk memasukkan data
-            sql = f"INSERT INTO {namaPemilikData} (id, Frame, Marker, X_Cordinates, X_Scoring, Y_Cordinates, Y_Scoring, Z_Cordinates, Z_Scoring) VALUES ({i}, {frame_data[i]}, '{marker[i]}', {x_data[i]}, {gabungkanx_data[i]}, {y_data[i]}, {gabungkany_data[i]}, {z_data[i]}, {gabungkanz_data[i]})"
+            sql = f"INSERT INTO {namaPemilikData} (id,Name,Age,Height,Weight,Frame, Marker, X_Cordinates, X_Scoring, Y_Cordinates, Y_Scoring, Z_Cordinates, Z_Scoring) VALUES ({i},'{namaPemilikData}',{umur},{tinggiBadan},{beratBadan}, {frame_data[i]}, '{marker[i]}', {x_data[i]}, {gabungkanx_data[i]}, {y_data[i]}, {gabungkany_data[i]}, {z_data[i]}, {gabungkanz_data[i]})"
             cursor.execute(sql)
-            # print('Ambil data dari setiap tabel')
-            # sql2 = f"SELECT * FROM {namaPemilikData} (id, Frame, Marker, X_Cordinates, X_Scoring, Y_Cordinates, Y_Scoring, Z_Cordinates, Z_Scoring) VALUES ({i}, {frame_data[i]}, '{marker[i]}', {x_data[i]}, {gabungkanx_data[i]}, {y_data[i]}, {gabungkany_data[i]}, {z_data[i]}, {gabungkanz_data[i]})"
-            # cursor.execute(sql2)
-            # print(sql2)
         # Commit perubahan ke database
         connection.commit()
     print(f"Data {namaPemilikData} berhasil ditambahkan")
 else:
-    for i in tables:
-        if i in tables:
-            print(f"tabel {i} sudah ada")
+    for cekTabel in tables:
+        if cekTabel in tables:
+            print(f"tabel {cekTabel} sudah ada")
+            if cekTabel == namaPemilikData : 
+                for i in range(len(frame_data)):
+                    with connection.cursor() as cursor: 
+                        sql = f"UPDATE {cekTabel} SET Name = '{namaPemilikData}', Age = {umur}, Height = {tinggiBadan}, Weight = {beratBadan},Frame = {frame_data[i]}, Marker = '{marker[i]}', X_Cordinates = {x_data[i]}, X_Scoring = {gabungkanx_data[i]}, Y_Cordinates = {y_data[i]}, Y_Scoring = {gabungkany_data[i]}, Z_Cordinates = {z_data[i]}, Z_Scoring = {gabungkanz_data[i]} WHERE id = {i}"
+                        cursor.execute(sql)
+                    connection.commit()
+                print(f"Data {cekTabel} berhasil diupdate")
+        else : 
+            print(f"tabel {cekTabel} belum ada")
 print('')
 
 # memunculkan seluruh tabel yang ada di database riyanlasso

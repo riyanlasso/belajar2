@@ -5,9 +5,10 @@ from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 import pymysql
 # data agneska
-with open('coba.c3d', 'rb') as handle:
+with open('D:/Kuliah/Semester8/belajar2/data/hengki/Dynamic trial 6.c3d', 'rb') as handle:
     reader = c3d.Reader(handle)
     markers = reader.point_labels
+    # print(markers)
     frames = []
     markers_to_show = []
     markers_to_show.append(markers)
@@ -59,7 +60,7 @@ with open('coba.c3d', 'rb') as handle:
             for j, marker in enumerate(hilangkanSpasi):
 
                 if marker in markers_fix:
-                    if marker == markers_fix[0]:
+                    if marker == pilihMarker[0]:
                         namaMarker = marker
                         sumbuX = np.array(points[j, 0])
                         sumbuY = np.array(points[j, 1])
@@ -77,7 +78,7 @@ with open('coba.c3d', 'rb') as handle:
                         print(
                             f'Frame {i} Marker : {namaMarker} Sumbu X : {sumbuX} Sumbu Y : {sumbuY} Sumbu Z : {sumbuZ}')
 
-                    elif marker == markers_fix[1]:
+                    elif marker == pilihMarker[1]:
                         namaMarker = marker
                         sumbuX = np.array(points[j, 0])
                         sumbuY = np.array(points[j, 1])
@@ -95,7 +96,7 @@ with open('coba.c3d', 'rb') as handle:
                         print(
                             f'Frame {i} Marker : {namaMarker} Sumbu X : {sumbuX} Sumbu Y : {sumbuY} Sumbu Z : {sumbuZ}')
 
-                    elif marker == markers_fix[2]:
+                    elif marker == pilihMarker[2]:
                         namaMarker = marker
                         sumbuX = np.array(points[j, 0])
                         sumbuY = np.array(points[j, 1])
@@ -113,7 +114,7 @@ with open('coba.c3d', 'rb') as handle:
                         print(
                             f'Frame {i} Marker : {namaMarker} Sumbu X : {sumbuX} Sumbu Y : {sumbuY} Sumbu Z : {sumbuZ}')
 
-                    elif marker == markers_fix[3]:
+                    elif marker == pilihMarker[3]:
                         namaMarker = marker
                         sumbuX = np.array(points[j, 0])
                         sumbuY = np.array(points[j, 1])
@@ -130,7 +131,7 @@ with open('coba.c3d', 'rb') as handle:
 
                         print(
                             f'Frame {i} Marker : {namaMarker} Sumbu X : {sumbuX} Sumbu Y : {sumbuY} Sumbu Z : {sumbuZ}')
-                    elif marker == markers_fix[4]:
+                    elif marker == pilihMarker[4]:
                         namaMarker = marker
                         sumbuX = np.array(points[j, 0])
                         sumbuY = np.array(points[j, 1])
@@ -147,7 +148,7 @@ with open('coba.c3d', 'rb') as handle:
 
                         print(
                             f'Frame {i} Marker : {namaMarker} Sumbu X : {sumbuX} Sumbu Y : {sumbuY} Sumbu Z : {sumbuZ}')
-                    elif marker == markers_fix[5]:
+                    elif marker == pilihMarker[5]:
                         namaMarker = marker
                         sumbuX = np.array(points[j, 0])
                         sumbuY = np.array(points[j, 1])
@@ -164,7 +165,7 @@ with open('coba.c3d', 'rb') as handle:
 
                         print(
                             f'Frame {i} Marker : {namaMarker} Sumbu X : {sumbuX} Sumbu Y : {sumbuY} Sumbu Z : {sumbuZ}')
-                    elif marker == markers_fix[6]:
+                    elif marker == pilihMarker[6]:
                         namaMarker = marker
                         sumbuX = np.array(points[j, 0])
                         sumbuY = np.array(points[j, 1])
@@ -181,7 +182,7 @@ with open('coba.c3d', 'rb') as handle:
 
                         print(
                             f'Frame {i} Marker : {namaMarker} Sumbu X : {sumbuX} Sumbu Y : {sumbuY} Sumbu Z : {sumbuZ}')
-                    elif marker == markers_fix[7]:
+                    elif marker == pilihMarker[7]:
                         namaMarker = marker
                         sumbuX = np.array(points[j, 0])
                         sumbuY = np.array(points[j, 1])
@@ -198,7 +199,7 @@ with open('coba.c3d', 'rb') as handle:
 
                         print(
                             f'Frame {i} Marker : {namaMarker} Sumbu X : {sumbuX} Sumbu Y : {sumbuY} Sumbu Z : {sumbuZ}')
-                    elif marker == markers_fix[8]:
+                    elif marker == pilihMarker[8]:
                         namaMarker = marker
                         sumbuX = np.array(points[j, 0])
                         sumbuY = np.array(points[j, 1])
@@ -215,7 +216,7 @@ with open('coba.c3d', 'rb') as handle:
 
                         print(
                             f'Frame {i} Marker : {namaMarker} Sumbu X : {sumbuX} Sumbu Y : {sumbuY} Sumbu Z : {sumbuZ}')
-                    elif marker == markers_fix[9]:
+                    elif marker == pilihMarker[9]:
                         namaMarker = marker
                         sumbuX = np.array(points[j, 0])
                         sumbuY = np.array(points[j, 1])
@@ -232,7 +233,7 @@ with open('coba.c3d', 'rb') as handle:
 
                         print(
                             f'Frame {i} Marker : {namaMarker} Sumbu X : {sumbuX} Sumbu Y : {sumbuY} Sumbu Z : {sumbuZ}')
-                    elif marker == markers_fix[10]:
+                    elif marker == pilihMarker[10]:
                         namaMarker = marker
                         sumbuX = np.array(points[j, 0])
                         sumbuY = np.array(points[j, 1])
@@ -249,7 +250,7 @@ with open('coba.c3d', 'rb') as handle:
 
                         print(
                             f'Frame {i} Marker : {namaMarker} Sumbu X : {sumbuX} Sumbu Y : {sumbuY} Sumbu Z : {sumbuZ}')
-                    elif marker == markers_fix[11]:
+                    elif marker == pilihMarker[11]:
                         namaMarker = marker
                         sumbuX = np.array(points[j, 0])
                         sumbuY = np.array(points[j, 1])
@@ -266,7 +267,7 @@ with open('coba.c3d', 'rb') as handle:
 
                         print(
                             f'Frame {i} Marker : {namaMarker} Sumbu X : {sumbuX} Sumbu Y : {sumbuY} Sumbu Z : {sumbuZ}')
-                    elif marker == markers_fix[12]:
+                    elif marker == pilihMarker[12]:
                         namaMarker = marker
                         sumbuX = np.array(points[j, 0])
                         sumbuY = np.array(points[j, 1])
@@ -283,7 +284,7 @@ with open('coba.c3d', 'rb') as handle:
 
                         print(
                             f'Frame {i} Marker : {namaMarker} Sumbu X : {sumbuX} Sumbu Y : {sumbuY} Sumbu Z : {sumbuZ}')
-                    elif marker == markers_fix[13]:
+                    elif marker == pilihMarker[13]:
                         namaMarker = marker
                         sumbuX = np.array(points[j, 0])
                         sumbuY = np.array(points[j, 1])
@@ -300,7 +301,7 @@ with open('coba.c3d', 'rb') as handle:
 
                         print(
                             f'Frame {i} Marker : {namaMarker} Sumbu X : {sumbuX} Sumbu Y : {sumbuY} Sumbu Z : {sumbuZ}')
-                    elif marker == markers_fix[14]:
+                    elif marker == pilihMarker[14]:
                         namaMarker = marker
                         sumbuX = np.array(points[j, 0])
                         sumbuY = np.array(points[j, 1])
@@ -317,7 +318,7 @@ with open('coba.c3d', 'rb') as handle:
 
                         print(
                             f'Frame {i} Marker : {namaMarker} Sumbu X : {sumbuX} Sumbu Y : {sumbuY} Sumbu Z : {sumbuZ}')
-                    elif marker == markers_fix[15]:
+                    elif marker == pilihMarker[15]:
                         namaMarker = marker
                         sumbuX = np.array(points[j, 0])
                         sumbuY = np.array(points[j, 1])
@@ -334,6 +335,8 @@ with open('coba.c3d', 'rb') as handle:
 
                         print(
                             f'Frame {i} Marker : {namaMarker} Sumbu X : {sumbuX} Sumbu Y : {sumbuY} Sumbu Z : {sumbuZ}')
+                else : 
+                    print(f'Frame {i} Marker : {marker} Tidak ditunjukkan')
     print('CARA 2')
     penguranganLPSIX, penguranganLPSIY, penguranganLPSIZ = [], [], []
     hasilSkorLPSIX, hasilSkorLPSIY, hasilSkorLPSIZ = [], [], []
@@ -400,7 +403,7 @@ with open('coba.c3d', 'rb') as handle:
     penjumlahanRASIX, penjumlahanRASIY, penjumlahanRASIZ = [], [], []
     penjumlahanLASIX, penjumlahanLASIY, penjumlahanLASIZ = [], [], []
 
-    # # LPSI START
+    # LPSI START
     try:
         print('scoring LPSIX')
         for x in range(len(LPSIX)):
@@ -463,9 +466,9 @@ with open('coba.c3d', 'rb') as handle:
         skorLPSIZ = 1
         penguranganLPSIZ.append(0)
         hasilSkorLPSIZ.append(skorLPSIZ)
-    # print(penguranganLPSIZ)
-    # print(hasilSkorLPSIZ)
-    # # LPSI END
+    print(penguranganLPSIZ)
+    print(hasilSkorLPSIZ)
+    # LPSI END
 
     # # RPSI START
     try:
@@ -480,7 +483,7 @@ with open('coba.c3d', 'rb') as handle:
                 skorRPSIX = 1
                 hasilSkorRPSIX.append(skorRPSIX)
             elif pengurangan == 0:
-                skorRPSIZ = 1
+                skorRPSIX = 1
                 hasilSkorRPSIX.append(skorRPSIX)
     except IndexError:
         skorRPSIX = 1
@@ -535,7 +538,7 @@ with open('coba.c3d', 'rb') as handle:
     print(hasilSkorRPSIZ)
     # # RPSI END
 
-    # # RTOE START
+    # RTOE START
     try:
         print('scoring RTOEX')
         for x in range(len(RTOEX)):
@@ -1501,12 +1504,7 @@ with open('coba.c3d', 'rb') as handle:
     gabungkanPenguranganx_data = []
     gabungkanPengurangany_data = []
     gabungkanPenguranganz_data = []
-    print(len(LPSIX))
-    print(len(LPSIY))
-    print(len(LPSIZ))
-    print(len(RPSIX))
-    print(len(RPSIY))
-    print(len(RPSIZ))
+    
     for i in range(len(LPSIX)):
         gabungkanx_data.append(hasilSkorLPSIX[i])
         gabungkanx_data.append(hasilSkorRPSIX[i])
@@ -1847,7 +1845,7 @@ with open('coba.c3d', 'rb') as handle:
     # print(result)
     # print(len(frame_data))
     # print(len(markers_fix * len(frame_no_list)))
-    marker = markers_fix * len(frame_no_list)
+    # marker = markers_fix * len(frame_no_list)
     # print ke csv
     # wb = Workbook()
     # ws = wb.active
@@ -1855,56 +1853,68 @@ with open('coba.c3d', 'rb') as handle:
     #     ws.append(r)
     # wb.save('cobaSampaiScoring3Cara2.xlsx')
 
-connection = pymysql.connect(host='localhost',
-                                 user='root',
-                                 password='Iamironman123',
-                                 db='riyanlasso')
-cursor = connection.cursor()
+# connection = pymysql.connect(host='localhost',
+#                                  user='root',
+#                                  password='Iamironman123',
+#                                  db='riyanlasso')
+# cursor = connection.cursor()
 
-cursor.execute("SHOW TABLES")
-tables = [table[0] for table in cursor.fetchall()]
+# cursor.execute("SHOW TABLES")
+# tables = [table[0] for table in cursor.fetchall()]
+# # print(tables)
+# # # nama pemilik marker
+# namaPemilikData = 'agneska'
+# umur = 17
+# tinggiBadan = 162
+# beratBadan = 58
+# namaPemilikData = namaPemilikData.lower()
 
-# # nama pemilik marker
-namaPemilikData = 'agneska'
-namaPemilikData = namaPemilikData.lower()
-
-if namaPemilikData not in tables:
-    print(f"tabel {namaPemilikData} belum ada")
-    # tables.append(namaPemilikData)
-    table_query = f"""
-    CREATE TABLE IF NOT EXISTS {namaPemilikData} (
-      id INTEGER PRIMARY KEY,
-      Frame FLOAT,
-      Marker VARCHAR(255),
-      X_Cordinates FLOAT,
-      X_Scoring FLOAT,
-      Y_Cordinates FLOAT,
-      Y_Scoring FLOAT,
-      Z_Cordinates FLOAT,
-      Z_Scoring FLOAT
-    )
-    """
-    cursor.execute(table_query)
-    print('Berhasil membuat tabel baru')
+# if namaPemilikData not in tables:
+#     print(f"tabel {namaPemilikData} belum ada")
+#     # tables.append(namaPemilikData)
+#     table_query = f"""
+#     CREATE TABLE IF NOT EXISTS {namaPemilikData} (
+#       id INTEGER PRIMARY KEY,
+#       Name VARCHAR(255),
+#       Age INTEGER,
+#       Height INTEGER,
+#       Weight INTEGER,
+#       Frame FLOAT,
+#       Marker VARCHAR(255),
+#       X_Cordinates FLOAT,
+#       X_Scoring FLOAT,
+#       Y_Cordinates FLOAT,
+#       Y_Scoring FLOAT,
+#       Z_Cordinates FLOAT,
+#       Z_Scoring FLOAT
+#     )
+#     """
+#     cursor.execute(table_query)
+#     print('Berhasil membuat tabel baru')
     
-    # ambil nilai data berdasarkan file .c3d yang terbaca 
-    for i in range(len(frame_data)):
-        with connection.cursor() as cursor:
-            # Query SQL untuk memasukkan data
-            sql = f"INSERT INTO {namaPemilikData} (id, Frame, Marker, X_Cordinates, X_Scoring, Y_Cordinates, Y_Scoring, Z_Cordinates, Z_Scoring) VALUES ({i}, {frame_data[i]}, '{marker[i]}', {x_data[i]}, {gabungkanx_data[i]}, {y_data[i]}, {gabungkany_data[i]}, {z_data[i]}, {gabungkanz_data[i]})"
-            cursor.execute(sql)
-            # print('Ambil data dari setiap tabel')
-            # sql2 = f"SELECT * FROM {namaPemilikData} (id, Frame, Marker, X_Cordinates, X_Scoring, Y_Cordinates, Y_Scoring, Z_Cordinates, Z_Scoring) VALUES ({i}, {frame_data[i]}, '{marker[i]}', {x_data[i]}, {gabungkanx_data[i]}, {y_data[i]}, {gabungkany_data[i]}, {z_data[i]}, {gabungkanz_data[i]})"
-            # cursor.execute(sql2)
-            # print(sql2)
-        # Commit perubahan ke database
-        connection.commit()
-    print(f"Data {namaPemilikData} berhasil ditambahkan")
-else:
-    for i in tables:
-        if i in tables:
-            print(f"tabel {i} sudah ada")
-print('')
+#     # ambil nilai data berdasarkan file .c3d yang terbaca 
+#     for i in range(len(frame_data)):
+#         with connection.cursor() as cursor:
+#             # Query SQL untuk memasukkan data
+#             sql = f"INSERT INTO {namaPemilikData} (id,Name,Age,Height,Weight,Frame, Marker, X_Cordinates, X_Scoring, Y_Cordinates, Y_Scoring, Z_Cordinates, Z_Scoring) VALUES ({i},'{namaPemilikData}',{umur},{tinggiBadan},{beratBadan}, {frame_data[i]}, '{marker[i]}', {x_data[i]}, {gabungkanx_data[i]}, {y_data[i]}, {gabungkany_data[i]}, {z_data[i]}, {gabungkanz_data[i]})"
+#             cursor.execute(sql)
+#         # Commit perubahan ke database
+#         connection.commit()
+#     print(f"Data {namaPemilikData} berhasil ditambahkan")
+# else:
+#     for cekTabel in tables:
+#         if cekTabel in tables:
+#             print(f"tabel {cekTabel} sudah ada")
+#             if cekTabel == namaPemilikData : 
+#                 for i in range(len(frame_data)):
+#                     with connection.cursor() as cursor: 
+#                         sql = f"UPDATE {cekTabel} SET Name = '{namaPemilikData}', Age = {umur}, Height = {tinggiBadan}, Weight = {beratBadan},Frame = {frame_data[i]}, Marker = '{marker[i]}', X_Cordinates = {x_data[i]}, X_Scoring = {gabungkanx_data[i]}, Y_Cordinates = {y_data[i]}, Y_Scoring = {gabungkany_data[i]}, Z_Cordinates = {z_data[i]}, Z_Scoring = {gabungkanz_data[i]} WHERE id = {i}"
+#                         cursor.execute(sql)
+#                     connection.commit()
+#                 print(f"Data {cekTabel} berhasil diupdate")
+#         else : 
+#             print(f"tabel {cekTabel} belum ada")
+# print('')
 
 # memunculkan seluruh tabel yang ada di database riyanlasso
 # with connection.cursor() as cursor:
@@ -1919,5 +1929,5 @@ print('')
 #             print(row)
     
 
-connection.close()
+# connection.close()
 
