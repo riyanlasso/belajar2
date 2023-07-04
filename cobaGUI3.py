@@ -1,6 +1,7 @@
 import importlib
 import sys
-from PyQt5.QtWidgets import QScrollArea, QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QFileDialog
+from PyQt5.QtWidgets import QGridLayout,QSizePolicy,QScrollArea, QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QFileDialog
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QScreen, QGuiApplication
 from PyQt5.QtGui import QFont
 import pyqtgraph as pg
@@ -9,7 +10,9 @@ import pandas as pd
 import c3d
 import mysql.connector
 import pymysql
-
+from openpyxl import Workbook
+from openpyxl.utils.dataframe import dataframe_to_rows
+import pandas as pd
 
 
 class MainWindow(QMainWindow):
@@ -31,112 +34,180 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("Contoh GUI PyQtGraph")
         self.setGeometry(200, 200, 2000, 980)
-        self.move(0,0)
+        self.move(0, 0)
+        # Judul
+        fontJudul = QFont("Arial", 18)
+        Judul = QLabel("PENGENALAN IDENTITAS DIRI BERDASARKAN GAIT RECOGNITION PADA DATA TRAYEKTORI")
+        Judul.setFont(fontJudul)
+        # Judul.setContentsMargins(0, 0, 0, 0)
+        Judul.setAlignment(Qt.AlignCenter)
         
-        # screen = QGuiApplication.primaryScreen()
-        # screen_geometry = screen.availableGeometry()
-        # self.setGeometry(screen_geometry)
-        
-
         # Buat input teks untuk nama, umur, dan tinggi badan
+        fontQline = QFont("Arial",14)
         self.name_input_training = QLineEdit()
+        self.name_input_training.setFixedSize(250, 40)
+        self.name_input_training.setFont(fontQline)
+        # self.name_input_training.setContentsMargins(0, 0, 0, 0)
+
         self.age_input_training = QLineEdit()
+        self.age_input_training.setFixedSize(250, 40)
+        self.age_input_training.setFont(fontQline)
+
         self.height_input_training = QLineEdit()
+        self.height_input_training.setFixedSize(250, 40)
+        self.height_input_training.setFont(fontQline)
+
         self.weight_input_training = QLineEdit()
+        self.weight_input_training.setFixedSize(250, 40)
+        self.weight_input_training.setFont(fontQline)
         # grafik
         self.plot_widget_training_x = pg.PlotWidget()
         self.plot_widget_training_y = pg.PlotWidget()
         self.plot_widget_training_z = pg.PlotWidget()
+        self.plot_widget_training_x.setFixedSize(600, 400)
+        self.plot_widget_training_y.setFixedSize(600, 400)
+        self.plot_widget_training_z.setFixedSize(600, 400)
         # x
         self.plot_widget_training_x.setWindowTitle("ALL TRAINING DATA")
         label_font = QFont("Arial", 12, QFont.Bold)
-        self.plot_widget_training_x.getAxis(
-            'left').setStyle(tickFont=label_font)
-        self.plot_widget_training_x.getAxis(
-            'bottom').setStyle(tickFont=label_font)
+        self.plot_widget_training_x.getAxis('left').setStyle(tickFont=label_font)
+        self.plot_widget_training_x.getAxis('bottom').setStyle(tickFont=label_font)
         # Memberikan label pada sumbu
         self.plot_widget_training_x.setLabel('left', text='FRAME')
-        self.plot_widget_training_x.setLabel(
-            'bottom', text='X - AXIS _ CORDINATES')
+        self.plot_widget_training_x.setLabel('bottom', text='X - AXIS _ CORDINATES')
         # y
         self.plot_widget_training_y.setWindowTitle("ALL TRAINING DATA")
         label_font = QFont("Arial", 12, QFont.Bold)
-        self.plot_widget_training_y.getAxis(
-            'left').setStyle(tickFont=label_font)
-        self.plot_widget_training_y.getAxis(
-            'bottom').setStyle(tickFont=label_font)
+        self.plot_widget_training_y.getAxis('left').setStyle(tickFont=label_font)
+        self.plot_widget_training_y.getAxis('bottom').setStyle(tickFont=label_font)
         # Memberikan label pada sumbu
         self.plot_widget_training_y.setLabel('left', text='FRAME')
-        self.plot_widget_training_y.setLabel(
-            'bottom', text='Y - AXIS _ CORDINATES')
+        self.plot_widget_training_y.setLabel('bottom', text='Y - AXIS _ CORDINATES')
         # z
         self.plot_widget_training_z.setWindowTitle("ALL TRAINING DATA")
         label_font = QFont("Arial", 12, QFont.Bold)
-        self.plot_widget_training_z.getAxis(
-            'left').setStyle(tickFont=label_font)
-        self.plot_widget_training_z.getAxis(
-            'bottom').setStyle(tickFont=label_font)
+        self.plot_widget_training_z.getAxis('left').setStyle(tickFont=label_font)
+        self.plot_widget_training_z.getAxis('bottom').setStyle(tickFont=label_font)
         # Memberikan label pada sumbu
         self.plot_widget_training_z.setLabel('left', text='FRAME')
-        self.plot_widget_training_z.setLabel(
-            'bottom', text='Z - AXIS _ CORDINATES')
+        self.plot_widget_training_z.setLabel('bottom', text='Z - AXIS _ CORDINATES')
         # show training data button
-        self.input_button_training = QPushButton("coba hitung variabel knn training")
-        self.input_button_training.clicked.connect(self.cobaInputKnnTraining3)
+        
         
         self.plot_input_training_data = QPushButton("Input Data Training")
         self.plot_input_training_data.clicked.connect(self.input_data_training)
-        
+        self.plot_input_training_data.setFixedSize(250, 100)
+
         self.plot_button_training = QPushButton("Show Data Training")
         self.plot_button_training.clicked.connect(self.show_data_training)
-        
+        self.plot_button_training.setFixedSize(250, 100)
+
+        self.input_button_training = QPushButton("coba hitung variabel knn training")
+        self.input_button_training.clicked.connect(self.cobaInputKnnTraining3)
+        self.input_button_training.setFixedSize(250, 100)
+
         self.calculate_knn = QPushButton("HITUNG KNN")
         self.calculate_knn.clicked.connect(self.hitungKNN)
+        self.calculate_knn.setFixedSize(250, 100)
 
         # Buat input teks testing data untuk nama, umur, dan tinggi badan
         self.name_input = QLineEdit()
         self.age_input = QLineEdit()
         self.height_input = QLineEdit()
         self.weight_input = QLineEdit()
-        self.plot_widget = pg.PlotWidget()
-        self.plot_widget.setWindowTitle("TESTING DATA")
+        
+        # self.plot_widget.setWindowTitle("TESTING DATA")
+        # label_font2 = QFont("Arial", 12, QFont.Bold)
+        # self.plot_widget.getAxis('left').setStyle(tickFont=label_font2)
+        # self.plot_widget.getAxis('bottom').setStyle(tickFont=label_font2)
+        # # Memberikan label pada sumbu
+        # self.plot_widget.setLabel('left', text='FRAME')
+        # self.plot_widget.setLabel('bottom', text='X - AXIS _ CORDINATES')
+        
+
+        # grafik
+        self.plot_widget_testing_x = pg.PlotWidget()
+        self.plot_widget_testing_y = pg.PlotWidget()
+        self.plot_widget_testing_z = pg.PlotWidget()
+        
+        self.plot_widget_testing_x.setFixedSize(600, 400)
+        self.plot_widget_testing_y.setFixedSize(600, 400)
+        self.plot_widget_testing_z.setFixedSize(600, 400)
+        
+        self.plot_widget_testing_x.setWindowTitle("TESTING DATA")
         label_font2 = QFont("Arial", 12, QFont.Bold)
-        self.plot_widget.getAxis('left').setStyle(tickFont=label_font2)
-        self.plot_widget.getAxis('bottom').setStyle(tickFont=label_font2)
-        # Memberikan label pada sumbu
-        self.plot_widget.setLabel('left', text='FRAME')
-        self.plot_widget.setLabel('bottom', text='X - AXIS _ CORDINATES')
+        self.plot_widget_testing_x.getAxis('left').setStyle(tickFont=label_font2)
+        self.plot_widget_testing_x.getAxis('bottom').setStyle(tickFont=label_font2)
+        self.plot_widget_testing_x.setLabel('left', text='FRAME')
+        self.plot_widget_testing_x.setLabel('bottom', text='X - AXIS _ CORDINATES')
+
+        self.plot_widget_testing_y.setWindowTitle("TESTING DATA")
+        label_font2 = QFont("Arial", 12, QFont.Bold)
+        self.plot_widget_testing_y.getAxis('left').setStyle(tickFont=label_font2)
+        self.plot_widget_testing_y.getAxis('bottom').setStyle(tickFont=label_font2)
+        self.plot_widget_testing_y.setLabel('left', text='FRAME')
+        self.plot_widget_testing_y.setLabel('bottom', text='Y - AXIS _ CORDINATES')
+
+        self.plot_widget_testing_y.setWindowTitle("TESTING DATA")
+        label_font2 = QFont("Arial", 12, QFont.Bold)
+        self.plot_widget_testing_z.getAxis('left').setStyle(tickFont=label_font2)
+        self.plot_widget_testing_z.getAxis('bottom').setStyle(tickFont=label_font2)
+        self.plot_widget_testing_z.setLabel('left', text='FRAME')
+        self.plot_widget_testing_z.setLabel('bottom', text='Z - AXIS _ CORDINATES')
+
         self.plot_button = QPushButton("Input Testing Data")
         self.plot_button.clicked.connect(self.plot_data)
         self.input_button_testing = QPushButton("coba hitung variabel knn testing")
         self.input_button_testing.clicked.connect(self.cobaInputKnnTesting3)
-
-        namaTabel, cursor2 = self.databaseConnection()
-
+        self.delete_testing_data = QPushButton("hapus data di 2 database")
+        self.delete_testing_data.clicked.connect(self.delete_testing_data_function)
+        
         layout = QVBoxLayout()
+        trainingGridLayout = QGridLayout()
         layout2 = QHBoxLayout()
-        layout.addWidget(QLabel(f"Tabel yang ada di database : {namaTabel}"))
-        # layout training
-        layout.addWidget(QLabel("Nama:"))
+        layout3 = QHBoxLayout()
+        layout4 = QHBoxLayout()
+        #Judul
+        layout.addWidget(Judul)
+        # Melanjutkan menambahkan komponen lain ke dalam layout utama seperti sebelumnya
+        
+        label_font = QFont("Arial", 14)
+        
+        labelNamaTraining = QLabel("Nama :")
+        labelNamaTraining.setFont(label_font)
+        layout.addWidget(labelNamaTraining)
         layout.addWidget(self.name_input_training)
-        layout.addWidget(QLabel("Umur:"))
+        # trainingGridLayout.addWidget(labelNamaTraining, 0, 0)
+        # trainingGridLayout.addWidget(self.name_input_training, 0, 0)
+        # layout.addLayout(trainingGridLayout)
+        labelUmurTraining = QLabel("Umur :")
+        labelUmurTraining.setFont(label_font)
+        layout.addWidget(labelUmurTraining)
         layout.addWidget(self.age_input_training)
-        layout.addWidget(QLabel("Tinggi Badan:"))
+        
+        
+        labelTinggiTraining = QLabel("Tinggi Badan :")
+        labelTinggiTraining.setFont(label_font)
+        layout.addWidget(labelTinggiTraining)
         layout.addWidget(self.height_input_training)
-        layout.addWidget(QLabel("Berat Badan:"))
-        layout.addWidget(self.weight_input_training)
 
-        layout.addWidget(self.plot_widget_training_x)
-        layout.addWidget(self.plot_widget_training_y)
-        layout.addWidget(self.plot_widget_training_z)
-        #coba variabel KNN
-        layout.addWidget(self.input_button_training)
-        #input .c3d training
-        layout.addWidget(self.plot_input_training_data)
-        #show graphic
-        layout.addWidget(self.plot_button_training)
-        #calculate data
-        layout.addWidget(self.calculate_knn)
+        labelBeratTraining = QLabel("Berat Badan :")
+        labelBeratTraining.setFont(label_font)
+        layout.addWidget(labelBeratTraining)
+        layout.addWidget(self.weight_input_training)
+        
+        # Menambahkan plot widget ke dalam layout2
+        layout2.addWidget(self.plot_widget_training_x)
+        layout2.addWidget(self.plot_widget_training_y)
+        layout2.addWidget(self.plot_widget_training_z)
+
+        # Menambahkan layout2 ke dalam layout utama
+        layout.addLayout(layout2)
+        layout4.addWidget(self.input_button_training)
+        layout4.addWidget(self.plot_input_training_data)
+        layout4.addWidget(self.plot_button_training)
+        layout4.addWidget(self.calculate_knn)
+        layout.addLayout(layout4)
 
         # layout testing
         layout.addWidget(QLabel("Nama:"))
@@ -147,17 +218,30 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.height_input)
         layout.addWidget(QLabel("Berat Badan:"))
         layout.addWidget(self.weight_input)
-        # layout.addWidget(import_button)
-        layout.addWidget(self.input_button_testing)
+        
+        layout3.addWidget(self.plot_widget_testing_x)
+        layout3.addWidget(self.plot_widget_testing_y)
+        layout3.addWidget(self.plot_widget_testing_z)
+
         layout.addWidget(self.plot_button)
-        layout.addWidget(self.plot_widget)
+        layout.addWidget(self.input_button_testing)
+        layout.addWidget(self.delete_testing_data)
+        layout.addLayout(layout3)
+        # layout.addWidget(self.input_button_testing)
+        # layout.addWidget(self.plot_button)
+        # layout.addWidget(self.plot_widget)
 
-        # Buat widget utama dan atur layout utama
-        main_widget = QWidget()
-        main_widget.setLayout(layout)
-        self.setCentralWidget(main_widget)
+        # Buat widget utama sebagai QScrollArea dan atur layout utama
+        scroll_area = QScrollArea()
+        scroll_area.setWidgetResizable(True)
+        scroll_area_widget = QWidget()
+        scroll_area_widget.setLayout(layout)
+        scroll_area.setWidget(scroll_area_widget)
+        self.setCentralWidget(scroll_area)
 
-        # Atur widget utama sebagai widget pusat dalam jendela utama
+        
+    def Tampilan(self) :
+        self.show()
 
     def import_file(self):
         # Menggunakan dialog file untuk memilih file yang akan diimpor
@@ -170,7 +254,7 @@ class MainWindow(QMainWindow):
             print("File yang dipilih:", file_path)
         return file_path
 
-    # input testing plot_data
+    # input data testing plot_data
     def plot_data(self):
         # panggil fungsi koneksi database
 
@@ -2093,47 +2177,130 @@ class MainWindow(QMainWindow):
                         print(f"Data {cekTabel} berhasil diupdate")
                 else:
                     print(f"tabel {cekTabel} belum ada")
+            
         print('')
         # print('')
         # print('')
         # print(frame_data)
-        self.plot_widget.plot(frame_no_list, LPSIX,
-                              pen='g', symbol='o', symbolSize=10)
-        self.plot_widget.plot(frame_no_list, RPSIX,
-                              pen='g', symbol='o', symbolSize=10)
-        self.plot_widget.plot(frame_no_list, RTOEX,
+        
+        #plot x
+        self.plot_widget_testing_x.plot(frame_no_list, LPSIX,
                               pen=None, symbol='o', symbolSize=10)
-        self.plot_widget.plot(frame_no_list, LHEEX,
+        self.plot_widget_testing_x.plot(frame_no_list, RPSIX,
                               pen=None, symbol='o', symbolSize=10)
-
-        self.plot_widget.plot(frame_no_list, LKNEX,
+        self.plot_widget_testing_x.plot(frame_no_list, RTOEX,
                               pen=None, symbol='o', symbolSize=10)
-        self.plot_widget.plot(frame_no_list, LTIBX,
-                              pen=None, symbol='o', symbolSize=10)
-        self.plot_widget.plot(frame_no_list, RTIBX,
+        self.plot_widget_testing_x.plot(frame_no_list, LHEEX,
                               pen=None, symbol='o', symbolSize=10)
 
-        self.plot_widget.plot(frame_no_list, LANKX,
+        self.plot_widget_testing_x.plot(frame_no_list, LKNEX,
                               pen=None, symbol='o', symbolSize=10)
-        self.plot_widget.plot(frame_no_list, RTHIX,
+        self.plot_widget_testing_x.plot(frame_no_list, LTIBX,
                               pen=None, symbol='o', symbolSize=10)
-
-        self.plot_widget.plot(frame_no_list, LTHIX,
-                              pen=None, symbol='o', symbolSize=10)
-        self.plot_widget.plot(frame_no_list, RANKX,
+        self.plot_widget_testing_x.plot(frame_no_list, RTIBX,
                               pen=None, symbol='o', symbolSize=10)
 
-        self.plot_widget.plot(frame_no_list, RKNEX,
+        self.plot_widget_testing_x.plot(frame_no_list, LANKX,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_x.plot(frame_no_list, RTHIX,
+                              pen=None, symbol='o', symbolSize=10)
+
+        self.plot_widget_testing_x.plot(frame_no_list, LTHIX,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_x.plot(frame_no_list, RANKX,
+                              pen=None, symbol='o', symbolSize=10)
+
+        self.plot_widget_testing_x.plot(frame_no_list, RKNEX,
                               pen=None, symbol='x', symbolSize=10)
-        self.plot_widget.plot(frame_no_list, RHEEX,
+        self.plot_widget_testing_x.plot(frame_no_list, RHEEX,
                               pen=None, symbol='o', symbolSize=10)
 
-        self.plot_widget.plot(frame_no_list, LTOEX,
+        self.plot_widget_testing_x.plot(frame_no_list, LTOEX,
                               pen=None, symbol='o', symbolSize=10)
-        self.plot_widget.plot(frame_no_list, RASIX,
+        self.plot_widget_testing_x.plot(frame_no_list, RASIX,
                               pen=None, symbol='o', symbolSize=10)
-        self.plot_widget.plot(frame_no_list, LASIX,
+        self.plot_widget_testing_x.plot(frame_no_list, LASIX,
+                              pen=None, symbol='o', symbolSize=10) 
+        
+        #plot y
+        self.plot_widget_testing_y.plot(frame_no_list, LPSIY,
                               pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_y.plot(frame_no_list, RPSIY,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_y.plot(frame_no_list, RTOEY,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_y.plot(frame_no_list, LHEEY,
+                              pen=None, symbol='o', symbolSize=10)
+
+        self.plot_widget_testing_y.plot(frame_no_list, LKNEY,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_y.plot(frame_no_list, LTIBY,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_y.plot(frame_no_list, RTIBY,
+                              pen=None, symbol='o', symbolSize=10)
+
+        self.plot_widget_testing_y.plot(frame_no_list, LANKY,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_y.plot(frame_no_list, RTHIY,
+                              pen=None, symbol='o', symbolSize=10)
+
+        self.plot_widget_testing_y.plot(frame_no_list, LTHIY,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_y.plot(frame_no_list, RANKY,
+                              pen=None, symbol='o', symbolSize=10)
+
+        self.plot_widget_testing_y.plot(frame_no_list, RKNEY,
+                              pen=None, symbol='x', symbolSize=10)
+        self.plot_widget_testing_y.plot(frame_no_list, RHEEY,
+                              pen=None, symbol='o', symbolSize=10)
+
+        self.plot_widget_testing_y.plot(frame_no_list, LTOEY,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_y.plot(frame_no_list, RASIY,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_y.plot(frame_no_list, LASIY,
+                              pen=None, symbol='o', symbolSize=10) 
+        
+        #plot z
+        self.plot_widget_testing_z.plot(frame_no_list, LPSIZ,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_z.plot(frame_no_list, RPSIZ,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_z.plot(frame_no_list, RTOEZ,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_z.plot(frame_no_list, LHEEZ,
+                              pen=None, symbol='o', symbolSize=10)
+
+        self.plot_widget_testing_z.plot(frame_no_list, LKNEZ,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_z.plot(frame_no_list, LTIBZ,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_z.plot(frame_no_list, RTIBZ,
+                              pen=None, symbol='o', symbolSize=10)
+
+        self.plot_widget_testing_z.plot(frame_no_list, LANKZ,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_z.plot(frame_no_list, RTHIZ,
+                              pen=None, symbol='o', symbolSize=10)
+
+        self.plot_widget_testing_z.plot(frame_no_list, LTHIZ,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_z.plot(frame_no_list, RANKZ,
+                              pen=None, symbol='o', symbolSize=10)
+
+        self.plot_widget_testing_z.plot(frame_no_list, RKNEZ,
+                              pen=None, symbol='x', symbolSize=10)
+        self.plot_widget_testing_z.plot(frame_no_list, RHEEZ,
+                              pen=None, symbol='o', symbolSize=10)
+
+        self.plot_widget_testing_z.plot(frame_no_list, LTOEZ,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_z.plot(frame_no_list, RASIZ,
+                              pen=None, symbol='o', symbolSize=10)
+        self.plot_widget_testing_z.plot(frame_no_list, LASIZ,
+                              pen=None, symbol='o', symbolSize=10) 
+        
+        
 
         # Lakukan plot data sesuai dengan kebutuhan Anda
 
@@ -4068,43 +4235,122 @@ class MainWindow(QMainWindow):
                 else:
                     print(f"tabel {cekTabel} belum ada")
         
-        self.plot_widget_training_x.plot(frame_no_list, LPSIX,
-                              pen='g', symbol='o', symbolSize=10)
-        self.plot_widget_training_x.plot(frame_no_list, RPSIX,
-                              pen='g', symbol='o', symbolSize=10)
-        self.plot_widget_training_x.plot(frame_no_list, RTOEX,
-                              pen='g', symbol='o', symbolSize=10)
-        self.plot_widget_training_x.plot(frame_no_list, LHEEX,
-                              pen='g', symbol='o', symbolSize=10)
+        # #plot x
+        # self.plot_widget_testing_x.plot(frame_no_list, LPSIX,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_x.plot(frame_no_list, RPSIX,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_x.plot(frame_no_list, RTOEX,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_x.plot(frame_no_list, LHEEX,
+        #                       pen=None, symbol='o', symbolSize=10)
 
-        self.plot_widget_training_x.plot(frame_no_list, LKNEX,
-                              pen='g', symbol='o', symbolSize=10)
-        self.plot_widget_training_x.plot(frame_no_list, LTIBX,
-                              pen='g', symbol='o', symbolSize=10)
-        self.plot_widget_training_x.plot(frame_no_list, RTIBX,
-                              pen='g', symbol='o', symbolSize=10)
+        # self.plot_widget_testing_x.plot(frame_no_list, LKNEX,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_x.plot(frame_no_list, LTIBX,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_x.plot(frame_no_list, RTIBX,
+        #                       pen=None, symbol='o', symbolSize=10)
 
-        self.plot_widget_training_x.plot(frame_no_list, LANKX,
-                              pen='g', symbol='o', symbolSize=10)
-        self.plot_widget_training_x.plot(frame_no_list, RTHIX,
-                              pen='g', symbol='o', symbolSize=10)
+        # self.plot_widget_testing_x.plot(frame_no_list, LANKX,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_x.plot(frame_no_list, RTHIX,
+        #                       pen=None, symbol='o', symbolSize=10)
 
-        self.plot_widget_training_x.plot(frame_no_list, LTHIX,
-                              pen='g', symbol='o', symbolSize=10)
-        self.plot_widget_training_x.plot(frame_no_list, RANKX,
-                              pen='g', symbol='o', symbolSize=10)
+        # self.plot_widget_testing_x.plot(frame_no_list, LTHIX,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_x.plot(frame_no_list, RANKX,
+        #                       pen=None, symbol='o', symbolSize=10)
 
-        self.plot_widget_training_x.plot(frame_no_list, RKNEX,
-                              pen='g', symbol='x', symbolSize=10)
-        self.plot_widget_training_x.plot(frame_no_list, RHEEX,
-                              pen='g', symbol='o', symbolSize=10)
+        # self.plot_widget_testing_x.plot(frame_no_list, RKNEX,
+        #                       pen=None, symbol='x', symbolSize=10)
+        # self.plot_widget_testing_x.plot(frame_no_list, RHEEX,
+        #                       pen=None, symbol='o', symbolSize=10)
 
-        self.plot_widget_training_x.plot(frame_no_list, LTOEX,
-                              pen='g', symbol='o', symbolSize=10)
-        self.plot_widget_training_x.plot(frame_no_list, RASIX,
-                              pen='g', symbol='o', symbolSize=10)
-        self.plot_widget_training_x.plot(frame_no_list, LASIX,
-                              pen='g', symbol='o', symbolSize=10)
+        # self.plot_widget_testing_x.plot(frame_no_list, LTOEX,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_x.plot(frame_no_list, RASIX,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_x.plot(frame_no_list, LASIX,
+        #                       pen=None, symbol='o', symbolSize=10) 
+        
+        # #plot y
+        # self.plot_widget_testing_y.plot(frame_no_list, LPSIY,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_y.plot(frame_no_list, RPSIY,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_y.plot(frame_no_list, RTOEY,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_y.plot(frame_no_list, LHEEY,
+        #                       pen=None, symbol='o', symbolSize=10)
+
+        # self.plot_widget_testing_y.plot(frame_no_list, LKNEY,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_y.plot(frame_no_list, LTIBY,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_y.plot(frame_no_list, RTIBY,
+        #                       pen=None, symbol='o', symbolSize=10)
+
+        # self.plot_widget_testing_y.plot(frame_no_list, LANKY,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_y.plot(frame_no_list, RTHIY,
+        #                       pen=None, symbol='o', symbolSize=10)
+
+        # self.plot_widget_testing_y.plot(frame_no_list, LTHIY,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_y.plot(frame_no_list, RANKY,
+        #                       pen=None, symbol='o', symbolSize=10)
+
+        # self.plot_widget_testing_y.plot(frame_no_list, RKNEY,
+        #                       pen=None, symbol='x', symbolSize=10)
+        # self.plot_widget_testing_y.plot(frame_no_list, RHEEY,
+        #                       pen=None, symbol='o', symbolSize=10)
+
+        # self.plot_widget_testing_y.plot(frame_no_list, LTOEY,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_y.plot(frame_no_list, RASIY,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_y.plot(frame_no_list, LASIY,
+        #                       pen=None, symbol='o', symbolSize=10) 
+        
+        # #plot z
+        # self.plot_widget_testing_z.plot(frame_no_list, LPSIZ,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_z.plot(frame_no_list, RPSIZ,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_z.plot(frame_no_list, RTOEZ,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_z.plot(frame_no_list, LHEEZ,
+        #                       pen=None, symbol='o', symbolSize=10)
+
+        # self.plot_widget_testing_z.plot(frame_no_list, LKNEZ,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_z.plot(frame_no_list, LTIBZ,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_z.plot(frame_no_list, RTIBZ,
+        #                       pen=None, symbol='o', symbolSize=10)
+
+        # self.plot_widget_testing_z.plot(frame_no_list, LANKZ,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_z.plot(frame_no_list, RTHIZ,
+        #                       pen=None, symbol='o', symbolSize=10)
+
+        # self.plot_widget_testing_z.plot(frame_no_list, LTHIZ,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_z.plot(frame_no_list, RANKZ,
+        #                       pen=None, symbol='o', symbolSize=10)
+
+        # self.plot_widget_testing_z.plot(frame_no_list, RKNEZ,
+        #                       pen=None, symbol='x', symbolSize=10)
+        # self.plot_widget_testing_z.plot(frame_no_list, RHEEZ,
+        #                       pen=None, symbol='o', symbolSize=10)
+
+        # self.plot_widget_testing_z.plot(frame_no_list, LTOEZ,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_z.plot(frame_no_list, RASIZ,
+        #                       pen=None, symbol='o', symbolSize=10)
+        # self.plot_widget_testing_z.plot(frame_no_list, LASIZ,
+        #                       pen=None, symbol='o', symbolSize=10)
 
         # Lakukan plot data sesuai dengan kebutuhan Anda
         
@@ -4163,9 +4409,9 @@ class MainWindow(QMainWindow):
         
         all_marker_z = []
 
-        self.plot_widget_training_x.clear()
-        self.plot_widget_training_y.clear()
-        self.plot_widget_training_z.clear()
+        # self.plot_widget_training_x.clear()
+        # self.plot_widget_training_y.clear()
+        # self.plot_widget_training_z.clear()
 
         # tables=['orang1,orang2']
         for cekTabel in tables:
@@ -4435,9 +4681,9 @@ class MainWindow(QMainWindow):
                             # connection2.commit()        
             # berikan warna yang berbeda setiap orang            
 
-            self.plot_widget_training_x.plot(all_marker_x,frame_no_list,pen=None, symbol='x', symbolSize=15,symbolBrush='r')
-            self.plot_widget_training_y.plot(all_marker_y,frame_no_list,pen=None, symbol='o', symbolSize=15,symbolBrush='y')
-            self.plot_widget_training_z.plot(all_marker_z,frame_no_list,pen=None, symbol='o', symbolSize=15,symbolBrush='b')
+            # self.plot_widget_training_x.plot(all_marker_x,frame_no_list,pen=None, symbol='x', symbolSize=15,symbolBrush='r')
+            # self.plot_widget_training_y.plot(all_marker_y,frame_no_list,pen=None, symbol='o', symbolSize=15,symbolBrush='y')
+            # self.plot_widget_training_z.plot(all_marker_z,frame_no_list,pen=None, symbol='o', symbolSize=15,symbolBrush='b')
             
 
     # def cobaInputKnn(self) :
@@ -4844,7 +5090,7 @@ class MainWindow(QMainWindow):
             insert_sql2 = f"INSERT INTO testingknnvariables (Name, Marker, Average_Age, Average_Height, Average_Weight, AverageMarker) VALUES ('{nama}', '{marker}', {average_age}, {average_height}, {average_weight}, {averageTotal})"
             cursor2.execute(insert_sql2)
             connection2.commit()
-            print(f'data {key} sudah masuk database trainingknnvariables')
+            print(f'data {key} sudah masuk database testingknnvariables')
 
         #jadikan marker sebagai row bukan column
 
@@ -4864,7 +5110,7 @@ class MainWindow(QMainWindow):
         cursor.execute(sqlname)
         resultname = cursor.fetchall()
         name_list_fix = [row[0] for row in resultname]
-        print(name_list_fix)
+        # print(name_list_fix)
         
 
         connection2 = pymysql.connect(host='localhost',
@@ -4885,7 +5131,7 @@ class MainWindow(QMainWindow):
         cursor2.execute(sqltesting)
         resultnametesting = cursor2.fetchall()
         name_list_fix_testing = [row2[0] for row2 in resultnametesting]
-        print(name_list_fix_testing)
+        # print(name_list_fix_testing)
         
         pilihMarker = ['LPSI', 'RPSI', 'RTOE', 'LHEE', 'LKNE', 'LTIB', 'RTIB',
                        'LANK', 'RTHI', 'LTHI', 'RANK', 'RKNE', 'RHEE', 'LTOE', 'RASI', 'LASI']
@@ -4900,6 +5146,7 @@ class MainWindow(QMainWindow):
         for cekTabel in range(len(name_list_fix)):
             # Inisialisasi total_distance untuk orang saat ini
             total_distance = 0
+            total_correct = 0
             # Loop melalui data marker
             for i in range(len(pilihMarker)):
                 # Query untuk mendapatkan data dari tabel trainingknnvariables
@@ -4914,6 +5161,9 @@ class MainWindow(QMainWindow):
                 sql2 = f"SELECT Name, Average_Age, Average_Height, Average_Weight, Marker, AverageMarker FROM testingknnvariables.testingknnvariables WHERE Marker = '{pilihMarker[i]}' AND Name IN ({','.join(['%s']*len(name_list_fix_testing))})"
                 cursor2.execute(sql2, name_list_fix_testing)
                 result2 = cursor2.fetchall()
+                
+                # min_distance = float('inf')
+                # predicted_label = ""
 
                 # Mendapatkan nilai rata-rata dari tabel trainingknnvariables
                 n1, x1, y1, z1,mark1, m1 = result1[0]
@@ -4922,28 +5172,50 @@ class MainWindow(QMainWindow):
                 # Mendapatkan nilai rata-rata dari tabel testingknnvariables
                 n2, x2, y2, z2,mark2, m2 = result2[0]
                 print(result2[0])
-        
+
                 # Menghitung Euclidean distance secara manual
-                distance = ((x1 - x2) ** 2) + ((y1 - y2) ** 2) + ((z1 - z2) ** 2) + ((m1 - m2) ** 2)
+                distance = ((x2 - x1) ** 2) + ((y2 - y1) ** 2) + ((z2 - z1) ** 2) + ((m2 - m1) ** 2)
                 
                 # Tambahkan hasil Euclidean distance ke total_distance
+                print(f'KNN antar marker : {distance}')
                 total_distance += distance
-
+                print(f'gabungan dengan marker sebelumnya : {total_distance}')
+                print('')
+            
             # Simpan hasil total_distance untuk orang saat ini ke dalam dictionary
             euclidean_distances[name_list_fix[cekTabel]] = total_distance
         
         # Cetak hasil Euclidean distance untuk setiap orang
+        person = []
+        distanceperson = []
         for orang, distance in euclidean_distances.items():
+            person.append(orang)
+            distanceperson.append(distance)
             print(f"Orang: {orang}, Distance: {distance}")
-        # Menentukan nilai K
         
+        # print(person,distanceperson)
+        
+        df = pd.DataFrame({
+            'testing by' : n2,
+            'Person': person,
+            'Distance': distanceperson,
+        })
+        df_sorted = df.sort_values(by='Distance')
+        wb = Workbook()
+        ws = wb.active
+        for r in dataframe_to_rows(df_sorted , index=True, header=True):
+            ws.append(r)
+        wb.save(f'testing{name_list_fix_testing}.xlsx')    
+
         # Menentukan nilai K
-        K = 1
+        K = 3
 
         # Mengambil K tetangga terdekat
         nearest_neighbors = sorted(euclidean_distances, key=euclidean_distances.get)[:K]
         print(nearest_neighbors)
         
+        
+
         # # Menghitung voting mayoritas
         # votes = {}
         # for neighbor in nearest_neighbors:
@@ -5098,9 +5370,50 @@ class MainWindow(QMainWindow):
 
         # # jadikan marker sebagai row bukan column
 
-            
-    
-                        
+    def delete_testing_data_function(self):
+        connection = pymysql.connect(host='localhost',
+                                     user='root',
+                                     password='Iamironman123',
+                                     db='riyanlassotesting')
+        
+        cursor = connection.cursor()
+        cursor.execute("SHOW TABLES")
+        tables_to_exclude = ['knndata4','knntrainingdata']
+        tables = [table[0] for table in cursor.fetchall() if table[0] not in tables_to_exclude]
+        # print(tables)
+        connection2 = pymysql.connect(host='localhost',
+                                     user='root',
+                                     password='Iamironman123',
+                                     db='testingknnvariables')
+        
+        cursor2 = connection2.cursor()
+        cursor2.execute("SHOW TABLES")
+        tables_to_exclude2 = ['testingknnvariables']
+        tables2 = [tables2[0] for tables2 in cursor2.fetchall()if tables2[0] not in tables_to_exclude2]
+
+        for table in tables:
+            table_name = table
+            cursor.execute(f"DROP TABLE riyanlassotesting.{table_name};")
+            print(f"Tabel {table_name} dari riyanlassotesting dihapus.")
+            # if table_name not in tables: 
+            #     print('database bersih')
+                
+            # elif table_name in tables:
+            #     cursor.execute(f"DROP TABLE riyanlassotesting.{table_name};")
+            #     print(f"Tabel {table_name} dari {connection.db} dihapus.")
+        for table2 in tables2:
+            table_name2 = table2
+            cursor2.execute(f"DROP TABLE testingknnvariables.{table_name2};")
+            print(f"Tabel {table_name2} dari testingknnvariables dihapus.")
+            # if table_name2 not in tables2: 
+            #     print('database bersih')
+                
+            # elif table_name2 in tables2:
+            #     cursor2.execute(f"DROP TABLE testingknnvariables.{table_name2};")
+            #     print(f"Tabel {table_name2} dari {connection2.db} dihapus.")
+        cursor2.execute(f"TRUNCATE TABLE testingknnvariables.testingknnvariables;")   
+
+   
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     main_window = MainWindow()
